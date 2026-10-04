@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
-<title>SANews Newspaper Generator v2.6.1</title>
+<title>SANews Newspaper Studio</title>
 <style>
 :root{--bg:#0d0f13;--panel:#171a20;--panel2:#1f232b;--text:#f5f6f7;--muted:#a7adb8;--accent:#f0a51b;--line:#303640;--ok:#4ade80}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:linear-gradient(180deg,#0c0e12,#12151b);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
@@ -21,7 +21,7 @@ label{display:block;color:#d9dde4;font-size:12px;font-weight:750;margin:10px 0 6
 </style>
 </head>
 <body>
-<header><div class="brand"><span class="dot"></span><div>SANews Newspaper Generator<small>v2.6 • editable server logo • offline</small></div></div><span class="badge">PNG A4 • 1191×1685</span></header>
+<header><div class="brand"><span class="dot"></span><div>SANews Newspaper Studio<small>Newsroom Edition • Create • Customize • Export</small></div></div><span class="badge">A4 PNG • 1191×1685</span></header>
 <div class="shell">
 <aside class="panel editor">
   <div class="section">
@@ -65,8 +65,8 @@ label{display:block;color:#d9dde4;font-size:12px;font-weight:750;margin:10px 0 6
     <div class="filebox" style="margin-top:10px"><label>Ganti logo server <span style="color:#8d94a0">(opsional)</span></label><input id="logoUpload" type="file" accept="image/*" /><p class="hint">Kalau tidak diisi, tetap pakai logo server bawaan yang sekarang.</p></div>
     <div class="sliders" style="margin-top:12px">
       <label>Ukuran<input id="logoSize" type="range" min="90" max="340" value="205" step="1"></label>
-      <label>Posisi X<input id="logoX" type="range" min="650" max="980" value="845" step="1"></label>
-      <label>Posisi Y<input id="logoY" type="range" min="70" max="240" value="130" step="1"></label>
+      <label>Posisi X<input id="logoX" type="range" min="650" max="980" value="860" step="1"></label>
+      <label>Posisi Y<input id="logoY" type="range" min="70" max="240" value="175" step="1"></label>
     </div>
     <button class="secondary wide" id="resetLogo" type="button" style="margin-top:10px;width:100%">Reset Posisi Logo</button>
     <p class="hint">Geser X = kiri/kanan, Y = atas/bawah, dan Ukuran untuk memperbesar atau mengecilkan logo langsung di preview.</p>
@@ -119,7 +119,7 @@ function loadLogoFile(inp){const f=inp.files&&inp.files[0];if(!f){serverLogoImg=
 function loadSANewsLogoFile(inp){const f=inp.files&&inp.files[0];if(!f){sanewsLogoImg=sanewsLogoDefaultImg;render();return}const r=new FileReader();r.onload=e=>{const im=new Image();im.onload=()=>{sanewsLogoImg=im;render()};im.src=e.target.result};r.readAsDataURL(f)}
 for(const id of ['title','subtitle','date','reporter','email','body','caption','fontSize','titleSize','doubleLine','showAgency','z1','x1','y1','z2','x2','y2','showServerLogo','logoSize','logoX','logoY','showSANewsLogo','sanewsLogoSize','sanewsLogoX','sanewsLogoY'])el(id).addEventListener('input',render);
 document.querySelectorAll('.layoutBtn').forEach(btn=>btn.addEventListener('click',()=>{layoutMode=btn.dataset.layout;document.querySelectorAll('.layoutBtn').forEach(b=>b.classList.toggle('active',b===btn));render()}));
-el('img1').addEventListener('change',e=>loadFile(e.target,1));el('img2').addEventListener('change',e=>loadFile(e.target,2));el('logoUpload').addEventListener('change',e=>loadLogoFile(e.target));el('resetLogo').addEventListener('click',()=>{el('logoSize').value=205;el('logoX').value=845;el('logoY').value=130;el('showServerLogo').checked=true;serverLogoImg=rightLogoImg;el('logoUpload').value='';render()});el('sanewsLogoUpload').addEventListener('change',e=>loadSANewsLogoFile(e.target));el('resetSANewsLogo').addEventListener('click',()=>{el('sanewsLogoSize').value=206;el('sanewsLogoX').value=140;el('sanewsLogoY').value=156;el('showSANewsLogo').checked=true;sanewsLogoImg=sanewsLogoDefaultImg;el('sanewsLogoUpload').value='';render()});
+el('img1').addEventListener('change',e=>loadFile(e.target,1));el('img2').addEventListener('change',e=>loadFile(e.target,2));el('logoUpload').addEventListener('change',e=>loadLogoFile(e.target));el('resetLogo').addEventListener('click',()=>{el('logoSize').value=205;el('logoX').value=860;el('logoY').value=175;el('showServerLogo').checked=true;serverLogoImg=rightLogoImg;el('logoUpload').value='';render()});el('sanewsLogoUpload').addEventListener('change',e=>loadSANewsLogoFile(e.target));el('resetSANewsLogo').addEventListener('click',()=>{el('sanewsLogoSize').value=206;el('sanewsLogoX').value=140;el('sanewsLogoY').value=156;el('showSANewsLogo').checked=true;sanewsLogoImg=sanewsLogoDefaultImg;el('sanewsLogoUpload').value='';render()});
 el('download').addEventListener('click',()=>{render();const a=document.createElement('a'),safe=(el('title').value||'SANews').replace(/[^a-z0-9]+/gi,'_').replace(/^_|_$/g,'');a.download=`SANews_v2_${safe}.png`;a.href=canvas.toDataURL('image/png',1);a.click()});
 el('clearPics').addEventListener('click',()=>{pic1=pic2=null;el('img1').value='';el('img2').value='';render()});
 el('reset').addEventListener('click',()=>{if(confirm('Reset semua isian dan layout?'))location.reload()});
